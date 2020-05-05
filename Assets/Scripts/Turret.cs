@@ -20,6 +20,8 @@ public class Turret : MonoBehaviour
 
 	public bool useLaser = false;
 	public LineRenderer lineRenderer;
+	public ParticleSystem impactEffect;
+	public Light impactLight;
 
 	[Header("Unity Setup Fields")]
 
@@ -83,6 +85,11 @@ public class Turret : MonoBehaviour
 				if (lineRenderer.enabled)
 				{
 					lineRenderer.enabled = false;
+					// NOTE: Particle system enabled/disabled makes the particle system appear disappear.
+					// However, we want the particles that existed to stay for their lifetime, and Play and Stop keeps things around
+					// until they're done playing.
+					impactEffect.Stop();
+					impactLight.enabled = false;
 				}
 			}
 
@@ -139,10 +146,24 @@ public class Turret : MonoBehaviour
 		if (!lineRenderer.enabled)
 		{
 			lineRenderer.enabled = true;
+			// NOTE: Particle system enabled/disabled makes the particle system appear disappear.
+			// However, we want the particles that existed to stay for their lifetime, and Play and Stop keeps things around
+			// until they're done playing.
+			impactEffect.Play();
+			impactLight.enabled = false;
 		}
 
 		lineRenderer.SetPosition(0, firePoint.position);
 		lineRenderer.SetPosition(1, target.position);
+
+		// Set particle impactEffect so that it is offset to exterior of enemy (not center)
+		// Also rotate back toward the laser origin.
+		// NOTE: Going to hard code the offset because all enemies have a radius of 1, but how
+		// would I do this with enemies that had arbitrary shapes?
+		// TODO: Watch game math video on math theory by Brackey's to understand normalized direction.
+		Vector3 dir = firePoint.position - target.position;
+		impactEffect.transform.rotation = Quaternion.LookRotation(dir);
+		impactEffect.transform.position = target.position + dir.normalized;
 	}
 
     void OnDrawGizmosSelected()
