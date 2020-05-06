@@ -4,32 +4,30 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     Transform target;
+	Enemy targetEnemy;
 
 	[Header("General")]
-
 	public float range = 15f;
 
 	// TODO: Create Unity custom editor script that allows user to select turret type enum (projectile/laser/etc) and shows fields depending on type
 
 	[Header("Use Bullets (default)")]
-
 	public float fireRate = 1f;
 	float fireCountdown = 0f;
 
 	[Header("Use Laser")]
-
 	public bool useLaser = false;
+	public float damageOverTime = 30f;
+	public float slowAmount = .5f;
 	public LineRenderer lineRenderer;
 	public ParticleSystem impactEffect;
 	public Light impactLight;
 
 	[Header("Unity Setup Fields")]
-
 	public string enemyTag = "Enemy";
 
 	public Transform partToRotate;
 	public float turnSpeed = 10f;
-
 	public GameObject bulletPrefab;
 	public Transform firePoint;
     
@@ -40,6 +38,7 @@ public class Turret : MonoBehaviour
     }
 
 	// Don't have the target update every frame. Computationally expensive. Instead, invokerepeating to happen 2x per second.
+	// TODO: Don't switch targets until target is out of range.
 	void UpdateTarget()
 	{
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
@@ -60,6 +59,7 @@ public class Turret : MonoBehaviour
 			if (nearestEnemy != null && shortestDistance <= range)
 			{
 				target = nearestEnemy.transform;
+				targetEnemy = nearestEnemy.GetComponent<Enemy>();
 				//Debug.Log($"Turret {name} targeting {target.name}");
 			}
 			else
@@ -114,7 +114,7 @@ public class Turret : MonoBehaviour
 		}
 	}
 
-	private void LockOnTarget()
+	void LockOnTarget()
 	{
 		// Target Lock On
 		// Only rotate around the Y axis
@@ -143,6 +143,9 @@ public class Turret : MonoBehaviour
 
 	void ShootLaser()
 	{
+		targetEnemy.TakeDamage(damageOverTime * Time.deltaTime);
+		targetEnemy.TakeSlow(slowAmount);
+
 		if (!lineRenderer.enabled)
 		{
 			lineRenderer.enabled = true;

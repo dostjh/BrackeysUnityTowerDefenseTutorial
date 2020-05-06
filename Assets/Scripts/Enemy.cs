@@ -2,60 +2,33 @@
 
 public class Enemy : MonoBehaviour
 {
-	public float speed = 10f;
+	// NOTE: He's using startSpeed and speed as separate concepts to make sure that 
+	// we don't continually decrease speed gradually going to zero. Avoids stacking problem.
+	// However, I think a cleaner approach might be to have a private variable IsSlowed. Wonder
+	// if that would be as performanent though...
+	public float startSpeed = 10f;
+	[HideInInspector] // TODO: Using this to prevent editing. However, I would want to make it so that I can still inspect. See https://answers.unity.com/questions/489942/how-to-make-a-readonly-property-in-inspector.html
+	public float speed;
 
-	public int health = 100;
-	public int reward = 50;
+	public float health = 100f;
+	public int worth = 50;
 	public GameObject deathEffect;
 
-	Transform target;
-	int wavepointIndex = 0;
-
-	void Start()
+	private void Start()
 	{
-		target = Waypoints.points[0];
-	}
-
-	void Update()
-	{
-		Vector3 dir = target.position - transform.position;
-		transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
-
-		if (Vector3.Distance(transform.position, target.position) <= 0.2f)
-		{
-			GetNextWaypoint();
-		}
-	}
-
-	void GetNextWaypoint()
-	{
-		if (wavepointIndex >= Waypoints.points.Length - 1)
-		{
-			EndPath();
-			return;
-		}
-		
-		wavepointIndex++;
-		target = Waypoints.points[wavepointIndex];
-	}
-
-	// TODO: Hate this method name. Change it.
-	void EndPath()
-	{
-		PlayerStats.Lives--;
-		Destroy(gameObject);
+		speed = startSpeed;
 	}
 
 	void Die()
 	{
-		PlayerStats.Money += reward;
+		PlayerStats.Money += worth;
 
 		var effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
 		Destroy(effect, 5f);
 		Destroy(gameObject);
 	}
 
-	public void TakeDamage (int amount)
+	public void TakeDamage(float amount)
 	{
 		Debug.Log($"Health before hit: {health}");
 		health -= amount;
@@ -65,5 +38,10 @@ public class Enemy : MonoBehaviour
 		{
 			Die();
 		}
+	}
+
+	public void TakeSlow(float amount)
+	{
+		speed = startSpeed * (1f - amount);
 	}
 }
