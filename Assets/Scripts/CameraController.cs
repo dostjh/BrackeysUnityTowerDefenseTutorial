@@ -16,6 +16,12 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+		if (GameManager.IsGameOver)
+		{
+			enabled = false;
+			return;
+		}
+
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			doMovement = !doMovement;

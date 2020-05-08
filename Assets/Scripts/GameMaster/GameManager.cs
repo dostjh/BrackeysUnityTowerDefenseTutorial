@@ -2,14 +2,27 @@
 
 public class GameManager : MonoBehaviour
 {
-	bool gameEnded = false;
+	// NOTE: Static variables persist even when scene is restarted.
+	public static bool IsGameOver;
+	public GameObject gameOverUI;
+
+	void Start()
+	{
+		IsGameOver = false;
+	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (gameEnded)
+		if (IsGameOver)
 		{
 			return;
+		}
+
+		// TODO: Remove. Just using this to make it easy to end game early.
+		if (Input.GetKeyDown("e"))
+		{
+			EndGame();
 		}
 
 		if (PlayerStats.Lives <= 0)
@@ -20,7 +33,9 @@ public class GameManager : MonoBehaviour
 
 	void EndGame()
 	{
-		gameEnded = true;
+		IsGameOver = true;
 		Debug.Log("Game Over!");
+
+		gameOverUI.SetActive(true);
 	}
 }

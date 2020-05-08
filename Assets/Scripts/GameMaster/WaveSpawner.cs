@@ -31,7 +31,9 @@ public class WaveSpawner : MonoBehaviour
     // NOTE: To build a co-routine, you use an IEnumerator. This allows you to give the method its own timing by using yield return. You then need to call the method with StartCoroutine().
     IEnumerator SpawnWave()
     {
-        waveIndex++;
+		PlayerStats.RoundsSurvived = waveIndex;
+
+		waveIndex++;
 		// Using localWaveIndex to track waveIndex for coroutine locally so we can do whatever we want to the waveIndex.
 		var localWaveIndex = waveIndex;
 
