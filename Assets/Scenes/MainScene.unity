@@ -5061,10 +5061,10 @@ RectTransform:
   m_Father: {fileID: 264582984}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 52.5, y: -34.09}
+  m_SizeDelta: {x: 105, y: 68.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &515106486
 MonoBehaviour:
@@ -8860,7 +8860,7 @@ RectTransform:
   - {fileID: 181493846}
   - {fileID: 1330493900}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10357,7 +10357,7 @@ RectTransform:
   - {fileID: 863909335}
   - {fileID: 264922053}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10558,7 +10558,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1024692241
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13590,10 +13590,10 @@ RectTransform:
   m_Father: {fileID: 264582984}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 157.5, y: -34.09}
+  m_SizeDelta: {x: 105, y: 68.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1435989595
 MonoBehaviour:
@@ -17602,7 +17602,7 @@ RectTransform:
   m_Children:
   - {fileID: 397608803}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -17738,7 +17738,7 @@ Transform:
   m_Children:
   - {fileID: 1024692241}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1943852329
 MonoBehaviour:
