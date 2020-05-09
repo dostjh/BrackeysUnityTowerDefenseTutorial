@@ -21,9 +21,12 @@ public class BuildManager : MonoBehaviour
 	public GameObject buildEffectPrefab;
 
 	TurretBlueprint turretToBuild;
+	Node selectedNode;
 
 	public bool CanBuild { get { return turretToBuild != null; } }
 	public bool CanAfford { get { return PlayerStats.Money >= turretToBuild.cost; } }
+
+	public NodeUI nodeUI;
 
 	public void BuildTurretOn(Node node)
 	{
@@ -46,9 +49,33 @@ public class BuildManager : MonoBehaviour
 
 		Debug.Log($"Turret built for {turretToBuild.cost}. Money remaining: {PlayerStats.Money}");
 	}
-	
+
+	// TODO: Move build logic to the menu that appears on a node rather than doing this. See SelectTurretToBuild(). Prior art: Ancient Planet.
+	public void SelectNode(Node node)
+	{
+		if (selectedNode == node)
+		{
+			DeselectNode();
+			return;
+		}
+
+		selectedNode = node;
+		turretToBuild = null;
+
+		nodeUI.SetTargetNode(node);
+	}
+
+	// TODO: Move build logic to the menu that appears on a node rather than doing this. See SelectNode(). Prior art: Ancient Planet.
 	public void SelectTurretToBuild(TurretBlueprint turret)
 	{
 		turretToBuild = turret;
+
+		DeselectNode();
+	}
+
+	void DeselectNode()
+	{
+		selectedNode = null;
+		nodeUI.Hide();
 	}
 }
