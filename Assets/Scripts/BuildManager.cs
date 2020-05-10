@@ -28,28 +28,6 @@ public class BuildManager : MonoBehaviour
 
 	public NodeUI nodeUI;
 
-	public void BuildTurretOn(Node node)
-	{
-		if (PlayerStats.Money < turretToBuild.cost)
-		{
-			// TODO: Display status to user.
-			Debug.Log($"Not enough money to build that -- Current: {PlayerStats.Money}; Cost: {turretToBuild.cost}");
-			return;
-		}
-
-		PlayerStats.Money -= turretToBuild.cost;
-		
-		// NOTE: Quaternion.identity means we don't rotate
-		var turret = Instantiate(turretToBuild.turretPrefab, node.GetBuildPosition(), Quaternion.identity);
-		node.turret = turret;
-
-		// TODO: Make this part of the turret prefab instead of having a single build effect for all turrets so that we can call the appropriate effect for the turret.
-		var buildEffect = Instantiate(turretToBuild.buildEffectPrefab, node.GetBuildPosition(), Quaternion.identity);
-		Destroy(buildEffect, 5.0f);
-
-		Debug.Log($"Turret built for {turretToBuild.cost}. Money remaining: {PlayerStats.Money}");
-	}
-
 	// TODO: Move build logic to the menu that appears on a node rather than doing this. See SelectTurretToBuild(). Prior art: Ancient Planet.
 	public void SelectNode(Node node)
 	{
@@ -73,7 +51,13 @@ public class BuildManager : MonoBehaviour
 		DeselectNode();
 	}
 
-	void DeselectNode()
+	// TODO: Make this into a property with only a getter.
+	public TurretBlueprint GetTurretToBuild()
+	{
+		return turretToBuild;
+	}
+
+	public void DeselectNode()
 	{
 		selectedNode = null;
 		nodeUI.Hide();

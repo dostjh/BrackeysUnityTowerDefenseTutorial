@@ -7,4 +7,9 @@ public class TurretBlueprint
 	public GameObject turretPrefab;
 	public GameObject buildEffectPrefab;
 	public int cost;
+
+	public GameObject upgradedTurretPrefab;
+	public int upgradeCost;
+
+	// TODO: Branching upgrade tree per turret and upgrade tree tracking
 }

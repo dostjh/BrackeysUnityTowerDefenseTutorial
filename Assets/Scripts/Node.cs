@@ -9,8 +9,12 @@ public class Node : MonoBehaviour
 	[Tooltip("Y-axis offset so object placement isn't embedded in node")]
 	public Vector3 positionOffset;
 
-	[Header("Optional")]
-	public GameObject turret;
+	[HideInInspector]
+	public GameObject Turret;
+	[HideInInspector]
+	public TurretBlueprint turretBlueprint;
+	[HideInInspector]
+	public bool IsUpgraded = false;
 
 	Renderer rend;
 	Color startColor;
@@ -20,6 +24,37 @@ public class Node : MonoBehaviour
 	public Vector3 GetBuildPosition()
 	{
 		return transform.position + positionOffset;
+	}
+
+	// TODO: public void UpgradeAllOfType()
+
+	public void UpgradeTurret()
+	{
+		if (PlayerStats.Money < turretBlueprint.upgradeCost)
+		{
+			// TODO: Display status to user.
+			Debug.Log($"Not enough money to upgrade that -- Current: {PlayerStats.Money}; Cost: {turretBlueprint.cost}");
+			return;
+		}
+
+		PlayerStats.Money -= turretBlueprint.upgradeCost;
+
+		// Remove previous turret from map
+		Destroy(Turret);
+
+		// Build the new turret
+		// NOTE: Quaternion.identity means we don't rotate
+		var turret = Instantiate(turretBlueprint.upgradedTurretPrefab, GetBuildPosition(), Quaternion.identity);
+		Turret = turret;
+
+		// TODO: Make this part of the turret prefab instead of having a single build effect for all turrets so that we can call the appropriate effect for the turret.
+		// TODO: Make a different turret build?
+		var buildEffect = Instantiate(turretBlueprint.buildEffectPrefab, GetBuildPosition(), Quaternion.identity);
+		Destroy(buildEffect, 5.0f);
+
+		IsUpgraded = true;
+
+		Debug.Log($"Turret upgraded for {turretBlueprint.upgradeCost}. Money remaining: {PlayerStats.Money}");
 	}
 
 	void Start()
@@ -38,7 +73,7 @@ public class Node : MonoBehaviour
 			return;
 		}
 
-		if (turret != null)
+		if (Turret != null)
 		{
 			buildManager.SelectNode(this);
 			return;
@@ -49,7 +84,31 @@ public class Node : MonoBehaviour
 			return;
 		}
 
-		buildManager.BuildTurretOn(this);
+		BuildTurret(buildManager.GetTurretToBuild());
+	}
+
+	void BuildTurret(TurretBlueprint turretToBuild)
+	{
+		if (PlayerStats.Money < turretToBuild.cost)
+		{
+			// TODO: Display status to user.
+			Debug.Log($"Not enough money to build that -- Current: {PlayerStats.Money}; Cost: {turretToBuild.cost}");
+			return;
+		}
+
+		PlayerStats.Money -= turretToBuild.cost;
+
+		// NOTE: Quaternion.identity means we don't rotate
+		var turret = Instantiate(turretToBuild.turretPrefab, GetBuildPosition(), Quaternion.identity);
+		Turret = turret;
+
+		turretBlueprint = turretToBuild;
+
+		// TODO: Make this part of the turret prefab instead of having a single build effect for all turrets so that we can call the appropriate effect for the turret.
+		var buildEffect = Instantiate(turretToBuild.buildEffectPrefab, GetBuildPosition(), Quaternion.identity);
+		Destroy(buildEffect, 5.0f);
+
+		Debug.Log($"Turret built for {turretToBuild.cost}. Money remaining: {PlayerStats.Money}");
 	}
 
 	// Hover animation
