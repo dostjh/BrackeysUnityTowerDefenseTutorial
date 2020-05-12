@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
 			return;
 		}
 
-		if (Input.GetKeyDown(KeyCode.Escape))
+		if (Input.GetKeyDown(KeyCode.Slash))
 		{
 			doMovement = !doMovement;
 		}
