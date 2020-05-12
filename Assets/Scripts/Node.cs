@@ -57,6 +57,20 @@ public class Node : MonoBehaviour
 		Debug.Log($"Turret upgraded for {turretBlueprint.upgradeCost}. Money remaining: {PlayerStats.Money}");
 	}
 
+	public void SellTurret()
+	{
+		var sellAmount = turretBlueprint.GetSellAmount();
+		PlayerStats.Money += sellAmount;
+
+		var sellEffect = Instantiate(turretBlueprint.sellEffectPrefab, GetBuildPosition(), Quaternion.identity);
+		Destroy(sellEffect, 5.0f);
+
+		Destroy(Turret);
+		turretBlueprint = null;
+
+		Debug.Log($"Turret sold for {sellAmount}. Money remaining: {PlayerStats.Money}");
+	}
+
 	void Start()
 	{
 		rend = GetComponent<Renderer>();

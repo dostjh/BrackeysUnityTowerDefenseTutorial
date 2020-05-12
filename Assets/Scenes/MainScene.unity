@@ -666,7 +666,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 47287628}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1943852329}
+        m_MethodName: Sell
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &47287628
@@ -8619,6 +8630,8 @@ MonoBehaviour:
       type: 3}
     buildEffectPrefab: {fileID: 8118734124260720720, guid: a959c680f2ea8564c973c876bfa91f3c,
       type: 3}
+    sellEffectPrefab: {fileID: 8118734124260720720, guid: 2ff5d09cb41c0cc4fb7f9febb99ac5ce,
+      type: 3}
     cost: 100
     upgradedTurretPrefab: {fileID: 5890813974614491059, guid: cb89fc16dc1fe2c42b1bf5c5d77ea1df,
       type: 3}
@@ -8628,17 +8641,23 @@ MonoBehaviour:
       type: 3}
     buildEffectPrefab: {fileID: 4046543329493074656, guid: c0e1f5d9822946247b85bd3f733730d6,
       type: 3}
+    sellEffectPrefab: {fileID: 8118734124260720720, guid: 2ff5d09cb41c0cc4fb7f9febb99ac5ce,
+      type: 3}
     cost: 250
-    upgradedTurretPrefab: {fileID: 0}
-    upgradeCost: 70
+    upgradedTurretPrefab: {fileID: 6142736215272206393, guid: 2480f2ce9f9abde47a24a7397794e0de,
+      type: 3}
+    upgradeCost: 150
   turretLaser:
     turretPrefab: {fileID: 5540346177726958211, guid: 064f9e3f104e5d041ad8c808444dfbca,
       type: 3}
     buildEffectPrefab: {fileID: 8118734124260720720, guid: a959c680f2ea8564c973c876bfa91f3c,
       type: 3}
+    sellEffectPrefab: {fileID: 8118734124260720720, guid: 2ff5d09cb41c0cc4fb7f9febb99ac5ce,
+      type: 3}
     cost: 350
-    upgradedTurretPrefab: {fileID: 0}
-    upgradeCost: 80
+    upgradedTurretPrefab: {fileID: 5540346177726958211, guid: 2c66a7934b267bc45be6a95a239a8b8e,
+      type: 3}
+    upgradeCost: 250
 --- !u!1001 &865051485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14036,7 +14055,7 @@ GameObject:
   - component: {fileID: 1525023315}
   - component: {fileID: 1525023314}
   m_Layer: 0
-  m_Name: Cost
+  m_Name: Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17929,6 +17948,7 @@ MonoBehaviour:
   ui: {fileID: 1024692240}
   upgradeCost: {fileID: 1842242264}
   upgradeButton: {fileID: 515106486}
+  sellAmount: {fileID: 1525023314}
 --- !u!1001 &1945983068
 PrefabInstance:
   m_ObjectHideFlags: 0
