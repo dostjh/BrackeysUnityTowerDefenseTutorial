@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -7,16 +8,22 @@ public class Enemy : MonoBehaviour
 	// However, I think a cleaner approach might be to have a private variable IsSlowed. Wonder
 	// if that would be as performanent though...
 	public float startSpeed = 10f;
+	public float startHealth = 100f;
+
 	[HideInInspector] // TODO: Using this to prevent editing. However, I would want to make it so that I can still inspect. See https://answers.unity.com/questions/489942/how-to-make-a-readonly-property-in-inspector.html
 	public float speed;
+	float health;
 
-	public float health = 100f;
 	public int worth = 50;
 	public GameObject deathEffect;
+
+	[Header("Unity Required Refereces")]
+	public Image healthBar;
 
 	private void Start()
 	{
 		speed = startSpeed;
+		health = startHealth;
 	}
 
 	void Die()
@@ -32,6 +39,7 @@ public class Enemy : MonoBehaviour
 	{
 		Debug.Log($"Health before hit: {health}");
 		health -= amount;
+		healthBar.fillAmount = health / startHealth;
 		Debug.Log($"Health after hit: {health}");
 
 		if (health <= 0)
