@@ -1,0 +1,1 @@
+[BUG] When upgrading a Laser Turret, a laser damage particle effect appears up and to the right from the laser turret's position
