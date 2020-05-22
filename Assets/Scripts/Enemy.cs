@@ -12,7 +12,8 @@ public class Enemy : MonoBehaviour
 
 	[HideInInspector] // TODO: Using this to prevent editing. However, I would want to make it so that I can still inspect. See https://answers.unity.com/questions/489942/how-to-make-a-readonly-property-in-inspector.html
 	public float speed;
-	float health;
+	[HideInInspector]
+	public float health;
 
 	public int worth = 50;
 	public GameObject deathEffect;
@@ -38,10 +39,8 @@ public class Enemy : MonoBehaviour
 
 	public void TakeDamage(float amount)
 	{
-		Debug.Log($"Health before hit: {health}");
 		health -= amount;
 		healthBar.fillAmount = health / startHealth;
-		Debug.Log($"Health after hit: {health}");
 
 		if (health <= 0)
 		{

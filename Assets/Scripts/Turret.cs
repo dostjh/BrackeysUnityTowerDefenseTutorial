@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    Transform target;
+	Transform target;
 	Enemy targetEnemy;
 
 	[Header("General")]
@@ -30,12 +30,12 @@ public class Turret : MonoBehaviour
 	public float turnSpeed = 10f;
 	public GameObject bulletPrefab;
 	public Transform firePoint;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
+
+	// Start is called before the first frame update
+	void Start()
+	{
 		InvokeRepeating("UpdateTarget", 0f, 0.5f);
-    }
+	}
 
 	// Don't have the target update every frame. Computationally expensive. Instead, invokerepeating to happen 2x per second.
 	// TODO: Don't switch targets until target is out of range.
@@ -75,10 +75,16 @@ public class Turret : MonoBehaviour
 	// behavior. This to me screams ITurret interface where some things are required for definition (damage rate)
 	// and others are left up to the implementation.
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
 	{
-		if (target == null)
+		// NOTE: There was a bug in Brackey's implementation where if you have multiple turrets
+		// who all kill the enemy simultaneously (as with the laser) then you can end up with less
+		// than zero enemies and end up in a state where you're going to spawn multiple waves.
+		// HACK: Check to see if the enemy is still alive before shooting the laser.
+		var isInvalidTarget = target == null || targetEnemy.health <= 0;
+
+		if (isInvalidTarget)
 		{
 			if (useLaser)
 			{

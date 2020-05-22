@@ -23,6 +23,12 @@ public class WaveSpawner : MonoBehaviour
 			return;
 		}
 
+		if (EnemiesAlive == 0)
+		{
+			// NOTE: Moved this here because rounds survived should update when there are no enemies on the map.
+			PlayerStats.RoundsSurvived = waveIndex;
+		}
+
 		if (countdown <= 0f)
         {
             StartCoroutine(SpawnWave());
@@ -40,11 +46,13 @@ public class WaveSpawner : MonoBehaviour
 
     // TODO: Watch Wave Spawner short series for more robust wave spawner by Brackeys
     // NOTE: To build a co-routine, you use an IEnumerator. This allows you to give the method its own timing by using yield return. You then need to call the method with StartCoroutine().
-	// BUG: Multiple waves on map?
     IEnumerator SpawnWave()
     {
-		PlayerStats.RoundsSurvived = waveIndex;
 		var wave = waves[waveIndex];
+
+		// NOTE: Brackey's implementation was to do this in SpawnEnemy for each enemy spawned
+		// but this created a bug when we burned down enemies faster than they could spawn.
+		EnemiesAlive += wave.count;
 
 		// Using localWaveIndex to track waveIndex for coroutine locally so we can do whatever we want to the waveIndex.
 		var localWaveIndex = waveIndex;
@@ -59,8 +67,7 @@ public class WaveSpawner : MonoBehaviour
 
 		waveIndex++;
 
-		// BUG: Not displaying when level complete. Game over script eventually appeared with 0 rounds survived.
-		// BUG: Not updating rounds survived when a wave is destroyed.
+		// BUG: Game over script eventually appeared with 0 rounds survived.
 		if (waveIndex == waves.Length)
 		{
 			Debug.Log("LEVEL COMPLETE");
@@ -71,6 +78,5 @@ public class WaveSpawner : MonoBehaviour
 	void SpawnEnemy(GameObject enemy)
     {
         Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
-		EnemiesAlive++;
     }
 }
