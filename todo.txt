@@ -1,1 +1,1 @@
-BUG SelectLevel Scene: Numbers appearing from buttons despite scroll rect having a Rect Mask 2D component that is hiding the button itself
+USER STORY As a developer, I use a scene that holds the data for the other scenes so that I don't have to duplicate as much work across scenes https://youtu.be/AQpDtrNJAEU?t=1264

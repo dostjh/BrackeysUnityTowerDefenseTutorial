@@ -12,6 +12,8 @@ public class WaveSpawner : MonoBehaviour
 
 	public Wave[] waves;
 
+	public GameManager gameManager;
+
     float countdown = 2f;
     int waveIndex = 0;
 
@@ -70,7 +72,7 @@ public class WaveSpawner : MonoBehaviour
 		// BUG: Game over script eventually appeared with 0 rounds survived.
 		if (waveIndex == waves.Length)
 		{
-			Debug.Log("LEVEL COMPLETE");
+			gameManager.WinLevel();
 			this.enabled = false;
 		}
 	}

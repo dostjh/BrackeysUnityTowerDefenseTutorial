@@ -5,6 +5,11 @@ public class GameManager : MonoBehaviour
 	// NOTE: Static variables persist even when scene is restarted.
 	public static bool IsGameOver;
 	public GameObject gameOverUI;
+	// TODO: Make a better level manager
+	public string nextLevel = "Level02";
+	public int levelToUnlock = 2;
+
+	public SceneFader sceneFader;
 
 	void Start()
 	{
@@ -37,5 +42,12 @@ public class GameManager : MonoBehaviour
 		Debug.Log("Game Over!");
 
 		gameOverUI.SetActive(true);
+	}
+
+	public void WinLevel()
+	{
+		Debug.Log("Level Complete");
+		PlayerPrefs.SetInt("LevelReached", levelToUnlock);
+		sceneFader.FadeTo(nextLevel);
 	}
 }
