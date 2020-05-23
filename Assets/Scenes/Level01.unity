@@ -3198,21 +3198,21 @@ MonoBehaviour:
   waveCountdownText: {fileID: 1330493902}
   spawnPoint: {fileID: 1635154865}
   waves:
-  - enemy: {fileID: 0}
-    count: 0
-    rate: 0
-  - enemy: {fileID: 0}
-    count: 0
-    rate: 0
-  - enemy: {fileID: 0}
-    count: 0
-    rate: 0
-  - enemy: {fileID: 0}
-    count: 0
-    rate: 0
-  - enemy: {fileID: 0}
-    count: 0
-    rate: 0
+  - enemy: {fileID: 1470649566796130148, guid: 383fe57ae2928304c874e375d674a8c2, type: 3}
+    count: 1
+    rate: 2
+  - enemy: {fileID: 1470649566796130148, guid: 383fe57ae2928304c874e375d674a8c2, type: 3}
+    count: 2
+    rate: 2
+  - enemy: {fileID: 1470649566796130148, guid: 383fe57ae2928304c874e375d674a8c2, type: 3}
+    count: 5
+    rate: 2
+  - enemy: {fileID: 1470649566796130148, guid: e94a90f3370a3e2429af082007e370c0, type: 3}
+    count: 2
+    rate: 2
+  - enemy: {fileID: 1470649566796130148, guid: 3a577863febb65349976cf76f07ceee0, type: 3}
+    count: 3
+    rate: 2
 --- !u!4 &292158008
 Transform:
   m_ObjectHideFlags: 0

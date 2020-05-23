@@ -1,0 +1,1 @@
+BUG SelectLevel Scene: Numbers appearing from buttons despite scroll rect having a Rect Mask 2D component that is hiding the button itself
