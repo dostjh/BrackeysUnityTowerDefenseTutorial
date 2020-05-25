@@ -18,8 +18,6 @@ public class BuildManager : MonoBehaviour
 	}
 	#endregion
 
-	public GameObject buildEffectPrefab;
-
 	TurretBlueprint turretToBuild;
 	Node selectedNode;
 

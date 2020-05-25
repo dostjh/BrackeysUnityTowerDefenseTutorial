@@ -31,6 +31,12 @@ public class WaveSpawner : MonoBehaviour
 			PlayerStats.RoundsSurvived = waveIndex;
 		}
 
+		if (waveIndex == waves.Length)
+		{
+			gameManager.WinLevel();
+			this.enabled = false;
+		}
+
 		if (countdown <= 0f)
         {
             StartCoroutine(SpawnWave());
@@ -68,13 +74,6 @@ public class WaveSpawner : MonoBehaviour
         }
 
 		waveIndex++;
-
-		// BUG: Game over script eventually appeared with 0 rounds survived.
-		if (waveIndex == waves.Length)
-		{
-			gameManager.WinLevel();
-			this.enabled = false;
-		}
 	}
 
 	void SpawnEnemy(GameObject enemy)
